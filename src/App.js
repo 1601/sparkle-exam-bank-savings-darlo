@@ -1,24 +1,41 @@
-import logo from './logo.svg';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
+
+// Context Providers
+import { ThemeProvider } from './context/ThemeContext';
+import { DataProvider } from './context/DataContext';
+
+// Components
+import Header from './components/Header';
+
+// Pages
+import Dashboard from './pages/Dashboard';
+import Transactions from './pages/Transactions';
+import Goals from './pages/Goals';
+import Banks from './pages/Banks';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider>
+      <DataProvider>
+        <Router>
+          <div className="App">
+            <Header />
+            <main className="main-content">
+              <Routes>
+                <Route path="/" element={<Dashboard />} />
+                <Route path="/transactions" element={<Transactions />} />
+                <Route path="/goals" element={<Goals />} />
+                <Route path="/banks" element={<Banks />} />
+              </Routes>
+            </main>
+            <footer className="app-footer">
+              <p>&copy; {new Date().getFullYear()} Bank Savings Organizer</p>
+            </footer>
+          </div>
+        </Router>
+      </DataProvider>
+    </ThemeProvider>
   );
 }
 

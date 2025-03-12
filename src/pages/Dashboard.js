@@ -1,10 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { DataContext } from '../context/DataContext';
 import { ThemeContext } from '../context/ThemeContext';
 import { Link } from 'react-router-dom';
 
 const Dashboard = () => {
-  const { transactions, goals, banks } = useContext(DataContext);
+  const { transactions, goals, banks, loadDemoData, resetAllData } = useContext(DataContext);
   const { darkMode } = useContext(ThemeContext);
 
   // Calculate total balance across all banks
@@ -32,25 +32,57 @@ const Dashboard = () => {
     .sort((a, b) => new Date(b.date) - new Date(a.date))
     .slice(0, 5);
 
+  // Handle demo data loading with confirmation
+  const handleLoadDemoData = () => {
+    if (window.confirm('This will replace your current data with demo data. Continue?')) {
+      loadDemoData();
+    }
+  };
+  
+  // Handle data reset with confirmation
+  const handleResetData = () => {
+    if (window.confirm('This will delete ALL your data and cannot be undone. Are you sure?')) {
+      resetAllData();
+    }
+  };
+
   return (
     <div className={`dashboard ${darkMode ? 'dark' : 'light'}`}>
-      <h2>Dashboard</h2>
+      <div className="dashboard-header">
+        <h2>Dashboard</h2>
+        <div className="data-management-buttons">
+          <button 
+            className="demo-data-button" 
+            onClick={handleLoadDemoData}
+            title="Load example data to see how the app works"
+          >
+            Load Demo Data
+          </button>
+          <button 
+            className="reset-data-button" 
+            onClick={handleResetData}
+            title="Clear all data and start fresh"
+          >
+            Reset All Data
+          </button>
+        </div>
+      </div>
       
       {/* Summary Section */}
       <div className="summary-cards">
         <div className="card total-balance">
           <h3>Total Balance</h3>
-          <p className="amount">${totalBalance.toFixed(2)}</p>
+          <p className="amount">₱{totalBalance.toFixed(2)}</p>
         </div>
         
         <div className="card monthly-income">
           <h3>Monthly Income</h3>
-          <p className="amount">${totalIncome.toFixed(2)}</p>
+          <p className="amount">₱{totalIncome.toFixed(2)}</p>
         </div>
         
         <div className="card monthly-expenses">
           <h3>Monthly Expenses</h3>
-          <p className="amount">${totalExpenses.toFixed(2)}</p>
+          <p className="amount">₱{totalExpenses.toFixed(2)}</p>
         </div>
         
         <div className="card savings-rate">
@@ -77,7 +109,7 @@ const Dashboard = () => {
             banks.map(bank => (
               <div key={bank.id} className="bank-card">
                 <h4>{bank.name}</h4>
-                <p className="bank-balance">${bank.balance.toFixed(2)}</p>
+                <p className="bank-balance">₱{bank.balance.toFixed(2)}</p>
                 <p className="interest-rate">{bank.interestRate}% {bank.interestFrequency}</p>
               </div>
             ))
@@ -111,7 +143,7 @@ const Dashboard = () => {
                   <td>{transaction.description}</td>
                   <td>{transaction.categoryId}</td>
                   <td className={transaction.type === 'income' ? 'income-amount' : 'expense-amount'}>
-                    {transaction.type === 'income' ? '+' : '-'}${Math.abs(transaction.amount).toFixed(2)}
+                    {transaction.type === 'income' ? '+' : '-'}₱{Math.abs(transaction.amount).toFixed(2)}
                   </td>
                 </tr>
               ))}
@@ -145,7 +177,7 @@ const Dashboard = () => {
                     ></div>
                   </div>
                   <div className="goal-stats">
-                    <p>${goal.currentAmount.toFixed(2)} of ${goal.targetAmount.toFixed(2)}</p>
+                    <p>₱{goal.currentAmount.toFixed(2)} of ₱{goal.targetAmount.toFixed(2)}</p>
                     <p>{progressPercent.toFixed(1)}% complete</p>
                   </div>
                   <p>Target date: {goal.targetDate}</p>

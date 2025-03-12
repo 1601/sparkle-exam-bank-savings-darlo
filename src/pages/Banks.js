@@ -142,7 +142,7 @@ const Banks = () => {
       {/* Summary Card */}
       <div className="bank-summary-card">
         <h3>Total Balance</h3>
-        <p className="total-amount">${totalBalance.toFixed(2)}</p>
+        <p className="total-amount">Php{totalBalance.toFixed(2)}</p>
         <p>Across {banks.length} accounts</p>
       </div>
       
@@ -175,13 +175,13 @@ const Banks = () => {
               
               <div className="bank-balance">
                 <p className="balance-label">Current Balance</p>
-                <p className="balance-amount">${bank.balance.toFixed(2)}</p>
+                <p className="balance-amount">Php{bank.balance.toFixed(2)}</p>
               </div>
               
               <div className="bank-details">
                 <div className="detail-item">
                   <p className="detail-label">Initial Deposit</p>
-                  <p className="detail-value">${bank.initialBalance.toFixed(2)}</p>
+                  <p className="detail-value">Php{bank.initialBalance.toFixed(2)}</p>
                 </div>
                 
                 <div className="detail-item">

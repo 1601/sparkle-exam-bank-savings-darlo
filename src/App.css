@@ -1,38 +1,585 @@
+/* Base styling and theme variables */
+:root {
+  --bg-light: #ffffff;
+  --text-light: #333333;
+  --primary-light: #4285f4;
+  --secondary-light: #34a853;
+  --accent-light: #ea4335;
+  --border-light: #e0e0e0;
+  --card-light: #f9f9f9;
+  --income-light: #34a853;
+  --expense-light: #ea4335;
+  --hover-light: #f0f0f0;
+  
+  --bg-dark: #1e1e1e;
+  --text-dark: #f0f0f0;
+  --primary-dark: #5c9eff;
+  --secondary-dark: #4eca6a;
+  --accent-dark: #ff6b6b;
+  --border-dark: #444444;
+  --card-dark: #2d2d2d;
+  --income-dark: #4eca6a;
+  --expense-dark: #ff6b6b;
+  --hover-dark: #383838;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+body.light-theme {
+  background-color: var(--bg-light);
+  color: var(--text-light);
+}
+
+body.dark-theme {
+  background-color: var(--bg-dark);
+  color: var(--text-dark);
+}
+
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Dashboard header with buttons */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.data-management-buttons {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.demo-data-button, .reset-data-button {
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.demo-data-button {
+  background-color: var(--primary-light);
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.dark .demo-data-button {
+  background-color: var(--primary-dark);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.reset-data-button {
+  background-color: var(--accent-light);
+  color: white;
+}
+
+.dark .reset-data-button {
+  background-color: var(--accent-dark);
+}
+
+.demo-data-button:hover, .reset-data-button:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Header Styling */
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.app-header.light {
+  background-color: var(--bg-light);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.app-header.dark {
+  background-color: var(--bg-dark);
+  border-bottom: 1px solid var(--border-dark);
+}
+
+.logo h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.main-nav ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.main-nav li {
+  margin: 0 1rem;
+}
+
+.main-nav a {
+  text-decoration: none;
+  font-weight: 500;
+  position: relative;
+  padding-bottom: 5px;
+}
+
+.light .main-nav a {
+  color: var(--text-light);
+}
+
+.dark .main-nav a {
+  color: var(--text-dark);
+}
+
+.main-nav a:hover {
+  color: var(--primary-light);
+}
+
+.dark .main-nav a:hover {
+  color: var(--primary-dark);
+}
+
+.theme-toggle button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-weight: 500;
+  transition: background-color 0.3s;
+}
+
+.light .theme-toggle button {
+  background-color: var(--card-light);
+  color: var(--text-light);
+}
+
+.dark .theme-toggle button {
+  background-color: var(--card-dark);
+  color: var(--text-dark);
+}
+
+.theme-toggle button:hover {
+  opacity: 0.9;
+}
+
+/* Main Content Styling */
+.main-content {
+  flex: 1;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Footer Styling */
+.app-footer {
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.9rem;
+  border-top: 1px solid;
+}
+
+.light .app-footer {
+  background-color: var(--bg-light);
+  border-color: var(--border-light);
+}
+
+.dark .app-footer {
+  background-color: var(--bg-dark);
+  border-color: var(--border-dark);
+}
+
+/* Card and Container Styling */
+.card, .bank-card, .goal-card {
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.light .card, .light .bank-card, .light .goal-card {
+  background-color: var(--card-light);
+  border: 1px solid var(--border-light);
+}
+
+.dark .card, .dark .bank-card, .dark .goal-card {
+  background-color: var(--card-dark);
+  border: 1px solid var(--border-dark);
+}
+
+.card:hover, .bank-card:hover, .goal-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Dashboard Styling */
+.dashboard h2, .transactions-page h2, .goals-page h2, .banks-page h2 {
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+.summary-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.summary-cards .card {
+  text-align: center;
+}
+
+.summary-cards .card h3 {
+  margin-top: 0;
+  font-size: 1rem;
+  opacity: 0.8;
+}
+
+.summary-cards .amount {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 0.5rem 0;
+}
+
+.total-balance .amount {
+  color: var(--primary-light);
+}
+
+.dark .total-balance .amount {
+  color: var(--primary-dark);
+}
+
+.monthly-income .amount {
+  color: var(--income-light);
+}
+
+.dark .monthly-income .amount {
+  color: var(--income-dark);
+}
+
+.monthly-expenses .amount {
+  color: var(--expense-light);
+}
+
+.dark .monthly-expenses .amount {
+  color: var(--expense-dark);
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.section-header h3 {
+  margin: 0;
+}
+
+.view-all {
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.light .view-all {
+  color: var(--primary-light);
+}
+
+.dark .view-all {
+  color: var(--primary-dark);
+}
+
+.banks-list, .goals-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.bank-card h4, .goal-card h4 {
+  margin-top: 0;
+  font-size: 1.2rem;
+}
+
+.bank-balance {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0.5rem 0;
+}
+
+.interest-rate {
+  opacity: 0.7;
+  font-size: 0.9rem;
+}
+
+/* Transaction Table Styling */
+.transactions-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 2rem;
+}
+
+.transactions-table th, .transactions-table td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+}
+
+.light .transactions-table th {
+  background-color: var(--card-light);
+  border-bottom: 2px solid var(--border-light);
+}
+
+.dark .transactions-table th {
+  background-color: var(--card-dark);
+  border-bottom: 2px solid var(--border-dark);
+}
+
+.light .transactions-table td {
+  border-bottom: 1px solid var(--border-light);
+}
+
+.dark .transactions-table td {
+  border-bottom: 1px solid var(--border-dark);
+}
+
+.income-amount {
+  color: var(--income-light);
+  font-weight: 600;
+}
+
+.dark .income-amount {
+  color: var(--income-dark);
+}
+
+.expense-amount {
+  color: var(--expense-light);
+  font-weight: 600;
+}
+
+.dark .expense-amount {
+  color: var(--expense-dark);
+}
+
+/* Goal Progress Styling */
+.goal-progress {
+  width: 100%;
+  height: 8px;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  margin: 0.75rem 0;
+  overflow: hidden;
+}
+
+.dark .goal-progress {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.progress-bar {
+  height: 100%;
+  background-color: var(--secondary-light);
+  border-radius: 4px;
+  transition: width 0.5s;
+}
+
+.dark .progress-bar {
+  background-color: var(--secondary-dark);
+}
+
+.goal-stats {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Form Styling */
+.transaction-form, .goal-form, .progress-form, .bank-form {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  border-radius: 8px;
+}
+
+.light .transaction-form, .light .goal-form, .light .progress-form, .light .bank-form {
+  background-color: var(--card-light);
+  border: 1px solid var(--border-light);
+}
+
+.dark .transaction-form, .dark .goal-form, .dark .progress-form, .dark .bank-form {
+  background-color: var(--card-dark);
+  border: 1px solid var(--border-dark);
+}
+
+.form-row {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.form-group {
+  flex: 1;
+  min-width: 200px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 4px;
+  border: 1px solid;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+  box-sizing: border-box;
+}
+
+.light input, .light select, .light textarea {
+  background-color: var(--bg-light);
+  border-color: var(--border-light);
+  color: var(--text-light);
+}
+
+.dark input, .dark select, .dark textarea {
+  background-color: var(--bg-dark);
+  border-color: var(--border-dark);
+  color: var(--text-dark);
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--primary-light);
+}
+
+.dark input:focus, .dark select:focus, .dark textarea:focus {
+  border-color: var(--primary-dark);
+}
+
+button {
+  cursor: pointer;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  border: none;
+  font-weight: 600;
+  transition: background-color 0.3s;
+}
+
+.submit-button, .add-button {
+  background-color: var(--primary-light);
+  color: white;
+}
+
+.dark .submit-button, .dark .add-button {
+  background-color: var(--primary-dark);
+}
+
+.submit-button:hover, .add-button:hover {
+  opacity: 0.9;
+}
+
+.delete-button {
+  background-color: var(--accent-light);
+  color: white;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.8rem;
+}
+
+.dark .delete-button {
+  background-color: var(--accent-dark);
+}
+
+.interest-button, .apply-button, .update-button {
+  background-color: var(--secondary-light);
+  color: white;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.9rem;
+}
+
+.dark .interest-button, .dark .apply-button, .dark .update-button {
+  background-color: var(--secondary-dark);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .app-header {
+    flex-direction: column;
+    padding: 1rem;
   }
-  to {
-    transform: rotate(360deg);
+  
+  .main-nav {
+    margin: 1rem 0;
+  }
+  
+  .main-nav ul {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .main-content {
+    padding: 1rem;
+  }
+  
+  .banks-list, .goals-list {
+    grid-template-columns: 1fr;
+  }
+  
+  .summary-cards {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .transactions-table {
+    display: block;
+    overflow-x: auto;
   }
 }
+
+@media (max-width: 480px) {
+  .summary-cards {
+    grid-template-columns: 1fr;
+  }
+  
+  .form-row {
+    flex-direction: column;
+  }
+  
+  .form-group {
+    margin-bottom: 1rem;
+  }
+}
+

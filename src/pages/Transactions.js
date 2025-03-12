@@ -255,17 +255,17 @@ const Transactions = () => {
       <div className="transactions-summary">
         <div className="summary-item income">
           <h4>Total Income</h4>
-          <p>${totalIncome.toFixed(2)}</p>
+          <p>₱{totalIncome.toFixed(2)}</p>
         </div>
         
         <div className="summary-item expenses">
           <h4>Total Expenses</h4>
-          <p>${totalExpenses.toFixed(2)}</p>
+          <p>₱{totalExpenses.toFixed(2)}</p>
         </div>
         
         <div className="summary-item balance">
           <h4>Balance</h4>
-          <p>${(totalIncome - totalExpenses).toFixed(2)}</p>
+          <p>₱{(totalIncome - totalExpenses).toFixed(2)}</p>
         </div>
       </div>
       
@@ -297,7 +297,7 @@ const Transactions = () => {
                     <td>{category ? category.name : transaction.categoryId}</td>
                     <td>{bank ? bank.name : 'Unknown Bank'}</td>
                     <td className={transaction.type === 'income' ? 'income-amount' : 'expense-amount'}>
-                      {transaction.type === 'income' ? '+' : '-'}${Math.abs(transaction.amount).toFixed(2)}
+                      {transaction.type === 'income' ? '+' : '-'}₱{Math.abs(transaction.amount).toFixed(2)}
                     </td>
                     <td>
                       <button 

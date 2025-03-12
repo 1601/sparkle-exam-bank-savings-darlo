@@ -152,6 +152,33 @@ export const DataProvider = ({ children }) => {
     setBanks(banks.filter(bank => bank.id !== id));
   };
 
+  // Load demo data
+  const loadDemoData = () => {
+    const demoData = generateDemoData();
+    setTransactions(demoData.transactions);
+    setGoals(demoData.goals);
+    setBanks(demoData.banks);
+    
+    // Save to localStorage
+    localStorage.setItem('transactions', JSON.stringify(demoData.transactions));
+    localStorage.setItem('goals', JSON.stringify(demoData.goals));
+    localStorage.setItem('banks', JSON.stringify(demoData.banks));
+    localStorage.setItem('firstVisit', 'false');
+  };
+
+  // Reset all data
+  const resetAllData = () => {
+    setTransactions([]);
+    setGoals([]);
+    setBanks([]);
+    
+    // Clear localStorage except for categories and firstVisit status
+    localStorage.setItem('transactions', JSON.stringify([]));
+    localStorage.setItem('goals', JSON.stringify([]));
+    localStorage.setItem('banks', JSON.stringify([]));
+    localStorage.setItem('firstVisit', 'false');
+  };
+
   return (
     <DataContext.Provider value={{
       transactions,
@@ -168,6 +195,8 @@ export const DataProvider = ({ children }) => {
       deleteTransaction,
       deleteGoal,
       deleteBank,
+      loadDemoData,
+      resetAllData,
     }}>
       {children}
     </DataContext.Provider>

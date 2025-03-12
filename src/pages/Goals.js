@@ -201,7 +201,7 @@ const Goals = () => {
                 <option value="">Choose a goal</option>
                 {goals.map(goal => (
                   <option key={goal.id} value={goal.id}>
-                    {goal.name} (${goal.currentAmount.toFixed(2)} / ${goal.targetAmount.toFixed(2)})
+                    {goal.name} (₱{goal.currentAmount.toFixed(2)} / ₱{goal.targetAmount.toFixed(2)})
                   </option>
                 ))}
               </select>
@@ -256,7 +256,7 @@ const Goals = () => {
                 <div className="goal-stats">
                   <div>
                     <p className="stat-label">Progress</p>
-                    <p className="stat-value">${goal.currentAmount.toFixed(2)} of ${goal.targetAmount.toFixed(2)}</p>
+                    <p className="stat-value">₱{goal.currentAmount.toFixed(2)} of ₱{goal.targetAmount.toFixed(2)}</p>
                   </div>
                   
                   <div>
